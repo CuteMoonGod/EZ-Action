@@ -1,0 +1,27 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestAppWPF"
+        xmlns:Properties="clr-namespace:TestAppWPF.Properties" x:Class="TestAppWPF.Window1"
+        mc:Ignorable="d"
+        Title="Settings" Height="231" Width="497.585" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+	<Grid Margin="0,0,2,0">
+		<TextBox x:Name="saveDirText" HorizontalAlignment="Left" Height="23" Margin="91,10,0,0" TextWrapping="Wrap" Text="{Binding defaultSavePath}" VerticalAlignment="Top" Width="390" ToolTip="The default save path for saving the output files.">
+			<TextBox.DataContext>
+				<Properties:Settings/>
+			</TextBox.DataContext>
+		</TextBox>
+		<TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Save Directory" VerticalAlignment="Top" Height="23"/>
+		<Button x:Name="SaveSettings" Content="Save Settings" HorizontalAlignment="Left" Margin="403,170,0,0" VerticalAlignment="Top" Width="75" Click="SaveSettings_Click"/>
+		<TextBlock x:Name="settingsText" HorizontalAlignment="Left" Margin="318,172,0,0" TextWrapping="Wrap" Text="Settings saved!" VerticalAlignment="Top" Opacity="0.5" Visibility="Hidden"/>
+		<TextBox x:Name="profileDir" HorizontalAlignment="Left" Height="23" Margin="92,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390" ToolTip="The default save path for saving the output files." Text="{Binding profileDir}" IsEnabled="False">
+			<TextBox.DataContext>
+				<Properties:Settings/>
+			</TextBox.DataContext>
+		</TextBox>
+		<TextBlock HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="Wrap" Text="ArmA 3 Profile" VerticalAlignment="Top" Height="23"/>
+		<ComboBox x:Name="profileDropDown" HorizontalAlignment="Left" Margin="92,38,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="profileDropDown_SelectionChanged"/>
+	</Grid>
+</Window>

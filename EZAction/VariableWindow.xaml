@@ -1,0 +1,29 @@
+﻿<Window x:Class="TestAppWPF.VariableWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestAppWPF"
+        mc:Ignorable="d"
+        Title="VariableWindow" Height="450" Width="800">
+	<Grid>
+		<TextBox x:Name="variableText" HorizontalAlignment="Left" Height="23" Margin="9,349,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" RenderTransformOrigin="0.5,0.5" TabIndex="1">
+			<TextBox.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform/>
+					<SkewTransform/>
+					<RotateTransform Angle="-0.355"/>
+					<TranslateTransform/>
+				</TransformGroup>
+			</TextBox.RenderTransform>
+		</TextBox>
+		<Button x:Name="AddVar_Button" Content="Add" HorizontalAlignment="Left" Margin="185,349,0,0" Width="50" Height="23"  VerticalAlignment="Top" RenderTransformOrigin="0.63,-1.522" TabIndex="3" Click="AddVar_Button_Click" />
+		<TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Height="17" Text="Variables" ToolTip="This side of the window allows you to define variables, which are generated into another file.&amp;#x0a;All variables defined in here will also have a publicVariable statement for itself."/>
+		<Button x:Name="VarDel_Button" Content="Delete selected Variable" HorizontalAlignment="Left" Height="23" Margin="10,377,0,0" VerticalAlignment="Top" Width="225"  TabIndex="4" Click="VarDel_Button_Click"/>
+		<TextBox x:Name="variableValue" HorizontalAlignment="Left" Height="23" Margin="97,349,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="83" RenderTransformOrigin="-0.047,0.522" TabIndex="2"/>
+		<TextBlock HorizontalAlignment="Left" Height="16" Margin="10,328,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="82"/>
+		<TextBlock HorizontalAlignment="Left" Height="16" Margin="97,328,0,0" TextWrapping="Wrap" Text="Value" VerticalAlignment="Top" Width="82"/>
+		<ListBox x:Name="variableList" HorizontalAlignment="Left" Height="296" Margin="10,27,0,0" VerticalAlignment="Top" Width="225" SelectionChanged="variableList_SelectionChanged" ToolTip="All variablesa"/>
+
+	</Grid>
+</Window>
