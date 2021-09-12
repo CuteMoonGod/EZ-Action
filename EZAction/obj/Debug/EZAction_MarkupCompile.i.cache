@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\
+C:\Users\Snick0rz\source\repos\EZ-Action\EZAction\obj\Debug\
 TestAppWPF
 none
 false
 DEBUG;TRACE
-C:\Users\Snick0rz\source\repos\EZAction\EZAction\App.xaml
+C:\Users\Snick0rz\source\repos\EZ-Action\EZAction\App.xaml
 2-649523810
 
 91064538787
 13-1505183044
 MainWindow.xaml;SettingsWindow.xaml;
 
-False
+True
 

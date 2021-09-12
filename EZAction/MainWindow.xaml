@@ -16,7 +16,7 @@
 		<CheckBox x:Name="progressCheck" Content="Progress Bar" HorizontalAlignment="Left" Height="20" Margin="10,266,0,0" VerticalAlignment="Top" Width="136" IsChecked="True" TabIndex="9" ToolTip="Whether a progress bar should be shown or not.&#x0a;Disabling this will cause the action to happen immediately."/>
 		<TextBlock HorizontalAlignment="Left" Height="16" Margin="10,335,0,0" TextWrapping="Wrap" Text="Duration" VerticalAlignment="Top" Width="136" IsEnabled="{Binding IsEnabled, ElementName=progressCheck}"/>
 		<TextBox x:Name="durationText" HorizontalAlignment="Left" Height="22" Margin="10,351,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" IsEnabled="{Binding IsChecked, ElementName=progressCheck}" Text="10" TabIndex="11" ToolTip="The duration of seconds the action will need to finish." AllowDrop="False" PreviewTextInput="NumberValidationTextBox"/>
-		<Button x:Name="RegEvent_Button" Content="Register Action" HorizontalAlignment="Left" Height="22" Margin="10,378,0,0" VerticalAlignment="Top" Width="136" TabIndex="12" Click="RegEvent_Button_Click"/>
+		<Button x:Name="RegEvent_Button" Content="Save Action" HorizontalAlignment="Left" Height="22" Margin="10,378,0,0" VerticalAlignment="Top" Width="136" TabIndex="12" Click="RegEvent_Button_Click"/>
 		<TextBlock HorizontalAlignment="Left" Height="17" Margin="151,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="237"><Run Text="Existing Actions"/><LineBreak/><Run/></TextBlock>
 		<Button x:Name="DelEvent_Button" Content="Delete selected Action" HorizontalAlignment="Left" Height="23" Margin="151,405,0,0" VerticalAlignment="Top" Width="237" TabIndex="13" Click="DelEvent_Button_Click"/>
 		<CheckBox x:Name="classCheck" Content="All of this class?" HorizontalAlignment="Left" Height="20" Margin="10,77,0,0" VerticalAlignment="Top" Width="136" TabIndex="6" ToolTip="Checking this will apply the action to all instances of this objects class, rather than just the object itself."/>
@@ -35,6 +35,7 @@
 				<Button x:Name="OpenVarPage_Button" Content="Variable Generator" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Click="OpenVarPage_Button_Click" Visibility="Hidden" />
 			</ToolBar>
 		</ToolBarTray>
+		<TextBlock x:Name="Editing_Label" HorizontalAlignment="Left" Margin="10,405,0,0" TextWrapping="Wrap" Text="Editing mode active" VerticalAlignment="Top" Width="136" TextAlignment="Center" Visibility="Hidden"/>
 
 	</Grid>
 </Window>

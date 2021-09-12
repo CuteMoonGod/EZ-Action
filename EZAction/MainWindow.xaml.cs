@@ -20,8 +20,14 @@ namespace TestAppWPF
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
+	///
+
 	public partial class MainWindow : Window
-	{
+	{	
+		// Global flag to check if editing mode is active
+		bool editing = false;
+		string targetCache;
+
 		public MainWindow()
 		{
 			//Set up basic settings
@@ -36,21 +42,6 @@ namespace TestAppWPF
 			}
 
 			InitializeComponent();
-		}
-
-		private void AddVar_Button_Click(object sender, RoutedEventArgs e)
-		{
-			/*if (variableText != null)
-			{
-				string concat = String.Concat("Variable: ", variableText.Text, "; Value: ", variableValue.Text);
-				variableList.Items.Add(concat);
-
-				variableContent var = new variableContent(variableText.Text, variableValue.Text);
-				variableContent.variableList.Add(var);
-
-				variableText.Text = "";
-				variableValue.Text = "";
-			}*/
 		}
 
 		private void DelEvent_Button_Click(object sender, RoutedEventArgs e)
@@ -72,18 +63,34 @@ namespace TestAppWPF
 			{
 				return;
 			}
-
-
+			
 			string concated = String.Concat("Function: ", functionText.Text);
-			eventList.Items.Add(concated);
-
 			int intDuration = Convert.ToInt32(durationText.Text);
 
-			aceEvent newEvent = new aceEvent(functionText.Text, actionText.Text, condition.IsChecked, progressCheck.IsChecked, intDuration, targetText.Text, classCheck.IsChecked, eventLabelText.Text);
-			aceEvent.eventList.Add(newEvent);
+			// When editing, delete previous index and insert action at previous index
+			if (editing) {
+				int indexCache = eventList.SelectedIndex;
+				eventList.Items.RemoveAt(indexCache);
 
+				eventList.Items.Insert(indexCache, concated);
+
+				aceEvent.eventList[indexCache] = new aceEvent(indexCache, functionText.Text, actionText.Text, condition.IsChecked, progressCheck.IsChecked, intDuration, targetText.Text, classCheck.IsChecked, eventLabelText.Text);
+
+				targetText.Text = targetCache;
+				targetCache = "";
+
+				DeactiveEditingMove();
+			}
+			// When adding, can just straight add and create object
+			else { 
+			int id = eventList.Items.Add(concated);
+
+			aceEvent newEvent = new aceEvent(id, functionText.Text, actionText.Text, condition.IsChecked, progressCheck.IsChecked, intDuration, targetText.Text, classCheck.IsChecked, eventLabelText.Text);
+			aceEvent.eventList.Add(newEvent);
+			}
 			functionText.Text = "";
 
+			classCheck.IsChecked = false;
 
 			actionText.Text = "";
 			//conditionText.Text = "";
@@ -93,9 +100,54 @@ namespace TestAppWPF
 			durationText.Text = "10";
 		}
 
+
 		private void EventList_MouseDoubleClick(object sender, RoutedEventArgs e)
 		{
-			object selectedItem = eventList.SelectedItem;
+			ActivateEditingMode();
+			try
+			{
+				Editing_Label.Visibility = Visibility.Visible;
+				object selectedItem = eventList.SelectedItem;
+				int index = eventList.Items.IndexOf(selectedItem);
+
+				aceEvent editAction = aceEvent.eventList[index];
+
+				//Disable the event list so only one thing can be edited at the same time
+				eventList.IsEnabled = false;
+
+				//If we're here, everything worked out, so let's get cracking
+				targetCache = targetText.Text;
+
+				targetText.Text = editAction.TargetEntity;
+				classCheck.IsChecked = editAction.ClassCheck;
+
+				functionText.Text = editAction.FunctionName;
+				eventLabelText.Text = editAction.ActionLabel;
+
+				progressCheck.IsChecked = editAction.ProgressBar;
+				actionText.Text = editAction.DisplayText;
+				durationText.Text = editAction.Duration.ToString();
+			}
+			// Catch OutOfRangeExceptions when the user clicks a non-existing item
+			catch (System.ArgumentOutOfRangeException exception) {
+				editing = false;
+				Editing_Label.Visibility = Visibility.Hidden;
+				return;
+			}
+		}
+
+		private void ActivateEditingMode()
+		{
+			editing = true;
+			Editing_Label.Visibility = Visibility.Visible;
+			eventList.IsEnabled = false;
+		}
+
+		private void DeactiveEditingMove()
+		{
+			editing = false;
+			Editing_Label.Visibility = Visibility.Hidden;
+			eventList.IsEnabled = true;
 		}
 
 		private bool validateAction()
@@ -168,18 +220,6 @@ namespace TestAppWPF
 			new errorPrint(evtBuild);
 		}
 
-		private void VarDel_Button_Click(object sender, RoutedEventArgs e)
-		{
-			/*object selectedItem = variableList.SelectedItem;
-
-			if (selectedItem != null)
-			{
-				variableContent.variableList.RemoveAt(variableList.Items.IndexOf(selectedItem));
-
-				variableList.Items.Remove(selectedItem);
-			}*/
-		}
-
 		private void ArmaDir_Button_Click(object sender, RoutedEventArgs e)
 		{
 			Process.Start(Properties.Settings.Default.profileDir);
@@ -214,3 +254,35 @@ namespace TestAppWPF
 		}
 	}
 }
+
+
+/* The officially sanctioned graveyard
+ * Stuff that's not implemented but will be (mostly variable stuff) goes here
+ *---------------------------------------------------------------------------*
+ private void VarDel_Button_Click(object sender, RoutedEventArgs e)
+		{
+			object selectedItem = variableList.SelectedItem;
+
+			if (selectedItem != null)
+			{
+				variableContent.variableList.RemoveAt(variableList.Items.IndexOf(selectedItem));
+
+				variableList.Items.Remove(selectedItem);
+			}
+		}
+ 
+ 		private void AddVar_Button_Click(object sender, RoutedEventArgs e)
+{
+	if (variableText != null)
+	{
+		string concat = String.Concat("Variable: ", variableText.Text, "; Value: ", variableValue.Text);
+		variableList.Items.Add(concat);
+
+		variableContent var = new variableContent(variableText.Text, variableValue.Text);
+		variableContent.variableList.Add(var);
+
+		variableText.Text = "";
+		variableValue.Text = "";
+	}
+
+*/
