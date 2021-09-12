@@ -1,0 +1,17 @@
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\MainWindow.g.cs
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\SettingsWindow.g.cs
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\App.g.cs
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\EZAction_MarkupCompile.cache
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\EZAction_MarkupCompile.lref
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\bin\Debug\EZAction.exe.config
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\bin\Debug\EZAction.exe
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\bin\Debug\EZAction.pdb
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\MainWindow.baml
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\SettingsWindow.baml
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\EZAction.g.resources
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\TestAppWPF.Properties.Resources.resources
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\EZAction.csproj.GenerateResource.cache
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\EZAction.csproj.CoreCompileInputs.cache
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\EZAction.exe
+C:\Users\Snick0rz\source\repos\EZAction\EZAction\obj\Debug\EZAction.pdb
