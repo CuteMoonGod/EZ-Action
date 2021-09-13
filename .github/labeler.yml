@@ -1,0 +1,7 @@
+# Add/remove 'critical' label if issue contains the words 'urgent' or 'critical'
+subtask:
+    - '(subtask)'
+blocked:
+    - '(blocked)'
+enhancement:
+    - '(Idea)'
