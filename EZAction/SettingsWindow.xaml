@@ -8,12 +8,12 @@
         mc:Ignorable="d"
         Title="Settings" Height="231" Width="497.585" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
 	<Grid Margin="0,0,2,0">
-		<TextBox x:Name="saveDirText" HorizontalAlignment="Left" Height="23" Margin="91,10,0,0" TextWrapping="Wrap" Text="{Binding defaultSavePath}" VerticalAlignment="Top" Width="390" ToolTip="The default save path for saving the output files.">
+		<TextBox x:Name="saveDirText" HorizontalAlignment="Left" Height="23" Margin="174,10,0,0" TextWrapping="Wrap" Text="{Binding defaultSavePath}" VerticalAlignment="Top" Width="308" ToolTip="The default save path for saving the output files.">
 			<TextBox.DataContext>
 				<Properties:Settings/>
 			</TextBox.DataContext>
 		</TextBox>
-		<TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Save Directory" VerticalAlignment="Top" Height="23"/>
+		<TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Work Directory" VerticalAlignment="Top" Height="23"/>
 		<Button x:Name="SaveSettings" Content="Save Settings" HorizontalAlignment="Left" Margin="403,170,0,0" VerticalAlignment="Top" Width="75" Click="SaveSettings_Click"/>
 		<TextBlock x:Name="settingsText" HorizontalAlignment="Left" Margin="318,172,0,0" TextWrapping="Wrap" Text="Settings saved!" VerticalAlignment="Top" Opacity="0.5" Visibility="Hidden"/>
 		<TextBox x:Name="profileDir" HorizontalAlignment="Left" Height="23" Margin="92,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390" ToolTip="The default save path for saving the output files." Text="{Binding profileDir}" IsEnabled="False">
@@ -23,5 +23,6 @@
 		</TextBox>
 		<TextBlock HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="Wrap" Text="ArmA 3 Profile" VerticalAlignment="Top" Height="23"/>
 		<ComboBox x:Name="profileDropDown" HorizontalAlignment="Left" Margin="92,38,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="profileDropDown_SelectionChanged"/>
+		<Button x:Name="Pick_Folder" Content="Pick Folder" HorizontalAlignment="Left" Margin="92,10,0,0" VerticalAlignment="Top" Width="77" Height="23" Click="Pick_Folder_Click"/>
 	</Grid>
 </Window>

@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows;
+//using System.Windows.Forms;
+using MessageBox = System.Windows.MessageBox;
 using Microsoft.Win32;
 
 namespace TestAppWPF
 {
+	[Serializable]
 	class aceEvent
 	{
 		//Global Variables
@@ -31,7 +35,7 @@ namespace TestAppWPF
 
 
 		public string FunctionName
-		{ 
+		{
 			get { return functionName; }
 			set { functionName = value; }
 		}
@@ -69,12 +73,12 @@ namespace TestAppWPF
 			set { classCheck = value; }
 		}
 
+		//Test default
+		public aceEvent() {
 
+		}
 
-
-
-
-		public aceEvent(int impID, string impFunction, string impDisplay, bool? impCond, bool? impProgress, int impDuration, string impTarget, bool? classBox, string impLabel)
+		public aceEvent(int impID, string impFunction, string impDisplay, bool? impProgress, int impDuration, string impTarget, bool? classBox, string impLabel)
 		{
 			id = impID;
 
@@ -87,6 +91,43 @@ namespace TestAppWPF
 
 			targetEntity = impTarget;
 			classCheck = Convert.ToBoolean(classBox);
+		}
+
+		public static void ResetList()
+		{
+			eventList.Clear();
+		}
+
+		public bool ValidateSelf()
+		{
+			if (this.functionName == null ||
+				this.actionLabel == null ||
+				this.targetEntity == null ||
+				(this.progressBar == true &&
+					(this.duration == 0 ||
+					this.displayText == null
+					)
+				)
+			)
+			{
+				// Something didn't get set correctly
+				return false;
+			}
+
+			else {
+				return true;
+			}
+		}
+
+		public static string ExportJSONString() {
+			string json = "";
+
+			foreach(aceEvent element in eventList)
+			{
+				json = ConcatWithNewLine(json, JsonSerializer.Serialize(element));
+			}
+
+			return json;
 		}
 
 		public static int BuildSQF()
@@ -106,7 +147,6 @@ namespace TestAppWPF
 				FileName = "output_actions.sqf",
 				InitialDirectory = Properties.Settings.Default.defaultSavePath
 			};
-
 
 			if (saveDialog.ShowDialog() == true)
 			{
@@ -149,7 +189,7 @@ namespace TestAppWPF
 			buildBuddy.Append(actions);
 			buildBuddy.Append(adds);
 
-			Clipboard.SetText(buildBuddy.ToString());
+			System.Windows.Clipboard.SetText(buildBuddy.ToString());
 		}
 
 		// Standard for only base and one thing to add
@@ -204,7 +244,7 @@ namespace TestAppWPF
 			foreach (aceEvent element in eventList)
 			{
 				int index = eventList.IndexOf(element) + 1;
-				string condition = String.Concat("_", element.functionName, index, "Condition");
+				string condition = String.Concat("_", element.functionName, "Condition");
 
 				concat = ConcatWithNewLine(concat, new[] { condition, " = { true };" });
 			}
@@ -273,7 +313,9 @@ namespace TestAppWPF
 			{
 				int index = eventList.IndexOf(element) + 1;
 
-				concat = ConcatWithNewLine(concat, new[] { "_generatedAction", index.ToString(), " = [\"missionaction", index.ToString(), "\", \"", element.actionLabel, "\", \"\", _", element.functionName, ", {true}] call ace_interact_menu_fnc_createAction;" });
+				string condition = String.Concat("_", element.functionName, "Condition");
+
+				concat = ConcatWithNewLine(concat, new[] { "_generatedAction", index.ToString(), " = [\"missionaction", index.ToString(), "\", \"", element.actionLabel, "\", \"\", _", element.functionName, ", ", condition ,"] call ace_interact_menu_fnc_createAction;" });
 
 			}
 
@@ -286,7 +328,7 @@ namespace TestAppWPF
 		private static string AddActions()
 		{
 			string concat;
-
+			
 			concat = "// Adding the created actions to the chosen objects";
 			concat = ConcatNewLine(concat);
 
@@ -311,6 +353,34 @@ namespace TestAppWPF
 
 	}
 
+	[Serializable]
+	class metadata {
+		//string projectName;
+		private DateTime lastSave;
+
+		public DateTime LastSave
+		{
+			get { return lastSave; }
+			set { lastSave = value; }
+		}
+
+		public metadata() {
+		}
+
+		public bool validateSelf()
+		{
+			if (lastSave.ToString() == "01.01.0001 00:00:00")
+			{
+				return false;
+			}
+			else return true;
+		}
+
+		public string ExportMetadata() {
+			lastSave = DateTime.Now;
+			return JsonSerializer.Serialize(this);
+		}
+	}
 
 
 
@@ -363,7 +433,6 @@ namespace TestAppWPF
 			else {
 				return 1;
 			}
-		return 3;
 		}
 		
 	}
