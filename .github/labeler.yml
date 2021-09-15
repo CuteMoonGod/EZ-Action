@@ -5,3 +5,7 @@ blocked:
     - '(blocked|Blocked)'
 enhancement:
     - '(Idea)'
+testing:
+    - '(in test|In test|In Test|in Test|testing)'
+test-success:
+    - '(test passed|Test passed)'
