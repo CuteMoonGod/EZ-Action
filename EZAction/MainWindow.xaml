@@ -11,30 +11,35 @@
 		<TextBox x:Name="targetText" Height="22" Margin="10,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.489,2.545" TabIndex="5" HorizontalAlignment="Left" Width="136" ToolTip="The variable name of the in-game object you want to add the action to goes here."/>
 		<TextBlock HorizontalAlignment="Left" Height="17" Margin="10,102,0,0" TextWrapping="Wrap" Text="Function Name" VerticalAlignment="Top" Width="136"/>
 		<TextBox x:Name="functionText" HorizontalAlignment="Left" Height="22" Margin="10,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TabIndex="7" ToolTip="What the resulting function is called in the output.&#x0a;You should give out descriptive names here, so you can easily identify them when adding the behavior."/>
-		<TextBlock HorizontalAlignment="Left" Height="17" Margin="10,291,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" IsEnabled="{Binding IsEnabled, ElementName=progressCheck}"><Run Text="Text"/><Run Text=" "/><Run Text="during Action"/></TextBlock>
-		<TextBox x:Name="actionText" HorizontalAlignment="Left" Height="22" Margin="10,308,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TabIndex="10" IsEnabled="{Binding IsChecked, ElementName=progressCheck}" ToolTip="This will be the text shown inside the progress bar."/>
-		<CheckBox x:Name="progressCheck" Content="Progress Bar" HorizontalAlignment="Left" Height="20" Margin="10,266,0,0" VerticalAlignment="Top" Width="136" IsChecked="True" TabIndex="9" ToolTip="Whether a progress bar should be shown or not.&#x0a;Disabling this will cause the action to happen immediately."/>
-		<TextBlock HorizontalAlignment="Left" Height="16" Margin="10,335,0,0" TextWrapping="Wrap" Text="Duration" VerticalAlignment="Top" Width="136" IsEnabled="{Binding IsEnabled, ElementName=progressCheck}"/>
-		<TextBox x:Name="durationText" HorizontalAlignment="Left" Height="22" Margin="10,351,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" IsEnabled="{Binding IsChecked, ElementName=progressCheck}" Text="10" TabIndex="11" ToolTip="The duration of seconds the action will need to finish." AllowDrop="False" PreviewTextInput="NumberValidationTextBox"/>
-		<Button x:Name="RegEvent_Button" Content="Register Action" HorizontalAlignment="Left" Height="22" Margin="10,378,0,0" VerticalAlignment="Top" Width="136" TabIndex="12" Click="RegEvent_Button_Click"/>
+		<TextBlock HorizontalAlignment="Left" Height="17" Margin="10,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" IsEnabled="{Binding IsEnabled, ElementName=progressCheck}"><Run Text="Text"/><Run Text=" "/><Run Text="during Action"/></TextBlock>
+		<TextBox x:Name="actionText" HorizontalAlignment="Left" Height="22" Margin="10,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TabIndex="10" IsEnabled="{Binding IsChecked, ElementName=progressCheck}" ToolTip="This will be the text shown inside the progress bar."/>
+		<CheckBox x:Name="progressCheck" Content="Progress Bar" HorizontalAlignment="Left" Height="20" Margin="10,183,0,0" VerticalAlignment="Top" Width="136" IsChecked="True" TabIndex="9" ToolTip="Whether a progress bar should be shown or not.&#x0a;Disabling this will cause the action to happen immediately."/>
+		<TextBlock HorizontalAlignment="Left" Height="16" Margin="10,242,0,0" TextWrapping="Wrap" Text="Duration" VerticalAlignment="Top" Width="136" IsEnabled="{Binding IsEnabled, ElementName=progressCheck}"/>
+		<TextBox x:Name="durationText" HorizontalAlignment="Left" Height="22" Margin="10,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" IsEnabled="{Binding IsChecked, ElementName=progressCheck}" Text="10" TabIndex="11" ToolTip="The duration of seconds the action will need to finish." AllowDrop="False" PreviewTextInput="NumberValidationTextBox"/>
+		<Button x:Name="RegEvent_Button" Content="Save Action" HorizontalAlignment="Left" Height="22" Margin="10,406,0,0" VerticalAlignment="Top" Width="136" TabIndex="12" Click="RegEvent_Button_Click"/>
 		<TextBlock HorizontalAlignment="Left" Height="17" Margin="151,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="237"><Run Text="Existing Actions"/><LineBreak/><Run/></TextBlock>
 		<Button x:Name="DelEvent_Button" Content="Delete selected Action" HorizontalAlignment="Left" Height="23" Margin="151,405,0,0" VerticalAlignment="Top" Width="237" TabIndex="13" Click="DelEvent_Button_Click"/>
 		<CheckBox x:Name="classCheck" Content="All of this class?" HorizontalAlignment="Left" Height="20" Margin="10,77,0,0" VerticalAlignment="Top" Width="136" TabIndex="6" ToolTip="Checking this will apply the action to all instances of this objects class, rather than just the object itself."/>
 		<Button x:Name="Generate_Button" Content="Generate as SQF" HorizontalAlignment="Left" Height="23" Margin="272,433,0,0" VerticalAlignment="Top" Width="116" TabIndex="14" Click="Generate_Button_Click"/>
 		<Button x:Name="Clipboard_Button" Content="Copy to Clipboard" HorizontalAlignment="Left" Height="23" Margin="151,433,0,0" VerticalAlignment="Top" Width="116" TabIndex="14" Click="Clipboard_Button_Click"/>
 		<ListBox x:Name="eventList" Height="350" Margin="151,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="237" MouseDoubleClick="EventList_MouseDoubleClick"/>
-		<TextBox x:Name="eventLabelText" HorizontalAlignment="Left" Height="21" Margin="10,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TabIndex="8" ToolTip="This is the label that is shown in the interaction menu of the object the action is applied to."/>
-		<TextBlock HorizontalAlignment="Left" Height="16" Margin="10,146,0,0" TextWrapping="Wrap" Text="Event Label" VerticalAlignment="Top" Width="136"/>
-		<CheckBox x:Name="condition" Content="Enabled at start?" HorizontalAlignment="Left" Height="17" Margin="251,254,0,0" VerticalAlignment="Top" Width="134" TabIndex="8" Visibility="Hidden"/>
+		<TextBox x:Name="eventLabelText" HorizontalAlignment="Left" Height="21" Margin="10,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TabIndex="8" ToolTip="This is the label that is shown in the interaction menu of the object the action is applied to."/>
+		<TextBlock HorizontalAlignment="Left" Height="16" Margin="10,141,0,0" TextWrapping="Wrap" Text="Event Label" VerticalAlignment="Top" Width="136"/>
 		<ToolBarTray Height="28" VerticalAlignment="Top">
-			<ToolBar HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="395" Margin="0,0,-371,-22" RenderTransformOrigin="0.5,0.5">
-				<Button x:Name="SettingsButton" Content="Settings" Height="22" VerticalAlignment="Top" Width="50
-						" Click="SettingsButton_Click" ToolTip="Opens the settings page for the default saving directory and ArmA 3 profile"/>
-				<Button x:Name="ExportDir_Button" Content="Open Export Directory" Height="22" VerticalAlignment="Top" Width="135" Click="ExportDir_Button_Click" ToolTip="Opens the output directory.&#x0a;See the settings to change this directory."/>
+			<ToolBar HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="271" Margin="117,0,-364,-15" RenderTransformOrigin="0.5,0.5">
+				<Button x:Name="SettingsButton" Content="Settings" Height="22" VerticalAlignment="Top" Width="50" Click="SettingsButton_Click" ToolTip="Opens the settings page for the default saving directory and ArmA 3 profile"/>
+				<Button x:Name="ExportDir_Button" Content="Open Working Directory" Height="22" VerticalAlignment="Top" Width="135" Click="ExportDir_Button_Click" ToolTip="Opens the output directory.&#x0a;See the settings to change this directory."/>
 				<Button x:Name="ArmaDir_Button" Content="Open ArmA 3 Profile" Height="22" VerticalAlignment="Top" Width="135" Click="ArmaDir_Button_Click" ToolTip="Opens the selected profile directory.&#x0a;See the settings to change your profile."/>
 				<Button x:Name="OpenVarPage_Button" Content="Variable Generator" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Click="OpenVarPage_Button_Click" Visibility="Hidden" />
 			</ToolBar>
+			<ToolBar HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="116" Margin="-24,0,-68,-15">
+				<Button x:Name="New_File"  Height="23" VerticalAlignment="Top" Width="23" FontFamily="Segoe MDL2 Assets" Content="&#xE7c3;" ToolTip="New File" Click="New_File_Click"/>
+				<Button x:Name="OpenFile_Button" VerticalAlignment="Top" Width="23" FontFamily="Segoe MDL2 Assets" Content="&#xE8E5;" ToolTip="Open File" Height="23" Click="OpenFile_Button_Click"/>
+				<Button x:Name="Save_Button" VerticalAlignment="Top" Width="23" FontFamily="Segoe MDL2 Assets" Content="&#xE74E;" ToolTip="Save File" Height="23" Click="Save_Button_Click" />
+				<Button x:Name="SaveAs_Button" Height="23" VerticalAlignment="Top" Width="23" FontFamily="Segoe MDL2 Assets" Content="&#xE792;" ToolTip="Save as..." Click="SaveAs_Button_Click"/>
+			</ToolBar>
 		</ToolBarTray>
+		<TextBlock x:Name="Editing_Label" HorizontalAlignment="Left" Margin="10,437,0,0" TextWrapping="Wrap" Text="Editing mode active" VerticalAlignment="Top" Width="136" TextAlignment="Center" Visibility="Hidden"/>
 
 	</Grid>
 </Window>

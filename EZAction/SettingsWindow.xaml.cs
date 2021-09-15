@@ -6,12 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+//using Microsoft.Win32;
+
+using System.Diagnostics;
 
 namespace TestAppWPF
 {
@@ -76,6 +80,21 @@ namespace TestAppWPF
 			else
 			{
 				profileDir.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ArmA 3 - Other Profiles\\" + profileDropDown.SelectedItem;
+			}
+		}
+
+		private void Pick_Folder_Click(object sender, RoutedEventArgs e)
+		{
+			FolderBrowserDialog folder = new FolderBrowserDialog
+			{
+				SelectedPath = Properties.Settings.Default.defaultSavePath,
+			};
+
+			DialogResult result = folder.ShowDialog();
+
+			if (result.ToString() == "OK")
+			{
+				saveDirText.Text = folder.SelectedPath;
 			}
 		}
 	}
