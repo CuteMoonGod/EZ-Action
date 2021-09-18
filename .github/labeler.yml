@@ -9,3 +9,5 @@ testing:
     - '(in test|In test|In Test|in Test|testing)'
 test-success:
     - '(test passed|Test passed)'
+bug:
+    - '(Bug|bug)'
