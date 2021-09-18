@@ -4,7 +4,7 @@ subtask:
 blocked:
     - '(blocked|Blocked)'
 enhancement:
-    - '(Idea)'
+    - '(Idea|Suggestion|Suggested)'
 testing:
     - '(in test|In test|In Test|in Test|testing)'
 test-success:
