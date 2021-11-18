@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows;
-//using System.Windows.Forms;
 using MessageBox = System.Windows.MessageBox;
 using Microsoft.Win32;
 
@@ -136,7 +135,7 @@ namespace TestAppWPF
 
 			if (eventList.Count <= 0)
 			{
-				MessageBox.Show("No actions to declare. Skipping step.");
+				//MessageBox.Show("No actions to declare. Skipping step.");
 				return 2;
 			}
 
@@ -157,7 +156,7 @@ namespace TestAppWPF
 			}
 			else
 			{
-				return 3;
+				return 1;
 			}
 
 			string targets = DeclareTargets();
@@ -175,9 +174,15 @@ namespace TestAppWPF
 			return 0;
 		}
 
-		public static void BuildToClipboard()
+		public static int BuildToClipboard()
 		{
 			StringBuilder buildBuddy = new StringBuilder();
+
+			if (eventList.Count <= 0)
+			{
+				//MessageBox.Show("No actions to declare. Skipping step.");
+				return 1;
+			}
 
 			string targets = DeclareTargets();
 			string functions = BuildFunctions();
@@ -189,7 +194,16 @@ namespace TestAppWPF
 			buildBuddy.Append(actions);
 			buildBuddy.Append(adds);
 
-			System.Windows.Clipboard.SetText(buildBuddy.ToString());
+			try
+			{
+				System.Windows.Clipboard.SetText(buildBuddy.ToString());
+			}
+			catch(Exception e)
+			{
+				return 2;
+			}
+
+			return 0;
 		}
 
 		// Standard for only base and one thing to add
@@ -255,7 +269,7 @@ namespace TestAppWPF
 			foreach (aceEvent element in eventList)
 			{
 				int index = eventList.IndexOf(element) + 1;
-				string objectNum = String.Concat("_target", index);
+				string objectNum = String.Concat("_", element.functionName, "Target");
 
 				concat = ConcatWithNewLine(concat, new[] { objectNum, " = ", element.targetEntity, ";" });
 			}
@@ -269,12 +283,13 @@ namespace TestAppWPF
 
 		private static string BuildFunctions()
 		{
-			string concat;
+			// Initialize cause else C# cries
+			string concat = "";
 
 			foreach (aceEvent element in eventList)
 			{
 
-				concat = ConcatWithNewLine("_", new[] { element.functionName, " = {" });
+				concat = ConcatWithNewLine(concat, new[] { "_", element.functionName, " = {" });
 
 				if (element.progressBar)
 				{
@@ -294,11 +309,9 @@ namespace TestAppWPF
 				concat = ConcatWithNewLine(concat, "};");
 				concat = ConcatNewLine(concat);
 				concat = ConcatNewLine(concat);
-
-				return concat;
 			}
 
-			return "shit";
+			return concat;
 		}
 
 
@@ -335,7 +348,7 @@ namespace TestAppWPF
 			foreach (aceEvent element in eventList)
 			{
 				int index = eventList.IndexOf(element) + 1;
-				string objectNum = String.Concat("_target", index);
+				string objectNum = String.Concat("_", element.functionName, "Target");
 
 
 				if (element.classCheck == true)
@@ -367,7 +380,7 @@ namespace TestAppWPF
 		public metadata() {
 		}
 
-		public bool validateSelf()
+		public bool ValidateSelf()
 		{
 			if (lastSave.ToString() == "01.01.0001 00:00:00")
 			{
@@ -384,58 +397,58 @@ namespace TestAppWPF
 
 
 
-	class variableContent {
-		public static List<variableContent> variableList = new List<variableContent>();
+	//class variableContent {
+	//	public static List<variableContent> variableList = new List<variableContent>();
 
-		private string name;
-		private string value;
+	//	private string name;
+	//	private string value;
 
-		public variableContent(string varName, string varVal) {
-			name = varName;
-			value = varVal;
-		}
+	//	public variableContent(string varName, string varVal) {
+	//		name = varName;
+	//		value = varVal;
+	//	}
 
-		public static int BuildSQF()
-		{
-			if (variableList.Count <= 0) {
-				MessageBox.Show("No variables to declare. Skipping step.");
-				return 2;
-			}
+	//	public static int BuildSQF()
+	//	{
+	//		if (variableList.Count <= 0) {
+	//			MessageBox.Show("No variables to declare. Skipping step.");
+	//			return 2;
+	//		}
 
-			SaveFileDialog saveDialog = new SaveFileDialog
-			{
-				Filter = "ArmA 3 Scripting Files (*.sqf)|*.sqf",
-				FileName = "output_variables.sqf",
-				InitialDirectory = Properties.Settings.Default.defaultSavePath
-			};
+	//		SaveFileDialog saveDialog = new SaveFileDialog
+	//		{
+	//			Filter = "ArmA 3 Scripting Files (*.sqf)|*.sqf",
+	//			FileName = "output_variables.sqf",
+	//			InitialDirectory = Properties.Settings.Default.defaultSavePath
+	//		};
 
-			if (saveDialog.ShowDialog() == true)
-			{
-				//Cleanup file before writing
-				File.Delete(saveDialog.FileName);
+	//		if (saveDialog.ShowDialog() == true)
+	//		{
+	//			//Cleanup file before writing
+	//			File.Delete(saveDialog.FileName);
 
-				foreach (variableContent element in variableList)
-				{
-					string line;
-					//If it's only numbers OR bool values, treat as such
-					if (Regex.IsMatch(element.value, "^[0-9]*$") || element.value == "true" || element.value == "false")
-					{
-						line = String.Concat(element.name, " = ", element.value, "; publicVariable \"", element.name, "\";");
-					}
-					//Else treat as foreign
-					else
-					{
-						line = String.Concat(element.name, " = \"", element.value, "\"; publicVariable \"", element.name, "\";");
-					}
-				}
-				return 0;
-			}
-			else {
-				return 1;
-			}
-		}
+	//			foreach (variableContent element in variableList)
+	//			{
+	//				string line;
+	//				//If it's only numbers OR bool values, treat as such
+	//				if (Regex.IsMatch(element.value, "^[0-9]*$") || element.value == "true" || element.value == "false")
+	//				{
+	//					line = String.Concat(element.name, " = ", element.value, "; publicVariable \"", element.name, "\";");
+	//				}
+	//				//Else treat as foreign
+	//				else
+	//				{
+	//					line = String.Concat(element.name, " = \"", element.value, "\"; publicVariable \"", element.name, "\";");
+	//				}
+	//			}
+	//			return 0;
+	//		}
+	//		else {
+	//			return 1;
+	//		}
+	//	}
 		
-	}
+	//}
 
 	class errorPrint
 	{
