@@ -5,20 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestAppWPF"
         mc:Ignorable="d"
-		Closing="Window_Closing"
         Title="Easy Action for ArmA 3" ResizeMode="NoResize" SizeToContent="WidthAndHeight" Width="398.1">
 	<Grid VerticalAlignment="Top" Height="466" Width="398" HorizontalAlignment="Left">
 		<TextBlock HorizontalAlignment="Left" Height="17" Margin="10,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" Text="Name of Target Object&#xD;&#xA;"/>
 		<TextBox x:Name="targetText" Height="22" Margin="10,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.489,2.545" TabIndex="5" HorizontalAlignment="Left" Width="136" ToolTip="The variable name of the in-game object you want to add the action to goes here."/>
 		<TextBlock HorizontalAlignment="Left" Height="17" Margin="10,102,0,0" TextWrapping="Wrap" Text="Function Name" VerticalAlignment="Top" Width="136"/>
-		<TextBox x:Name="functionText" HorizontalAlignment="Left" Height="22" Margin="10,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TabIndex="7" ToolTip="What the resulting function is called in the output.&#x0a;You should give out descriptive names here, so you can easily identify them when adding the behavior.&#x0a;Only alphanumerics and underscores are allowed but numbers cannot be on the first position."/>
+		<TextBox x:Name="functionText" HorizontalAlignment="Left" Height="22" Margin="10,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TabIndex="7" ToolTip="What the resulting function is called in the output.&#x0a;You should give out descriptive names here, so you can easily identify them when adding the behavior."/>
 		<TextBlock HorizontalAlignment="Left" Height="17" Margin="10,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" IsEnabled="{Binding IsEnabled, ElementName=progressCheck}"><Run Text="Text"/><Run Text=" "/><Run Text="during Action"/></TextBlock>
 		<TextBox x:Name="actionText" HorizontalAlignment="Left" Height="22" Margin="10,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TabIndex="10" IsEnabled="{Binding IsChecked, ElementName=progressCheck}" ToolTip="This will be the text shown inside the progress bar."/>
 		<CheckBox x:Name="progressCheck" Content="Progress Bar" HorizontalAlignment="Left" Height="20" Margin="10,183,0,0" VerticalAlignment="Top" Width="136" IsChecked="True" TabIndex="9" ToolTip="Whether a progress bar should be shown or not.&#x0a;Disabling this will cause the action to happen immediately."/>
 		<TextBlock HorizontalAlignment="Left" Height="16" Margin="10,242,0,0" TextWrapping="Wrap" Text="Duration" VerticalAlignment="Top" Width="136" IsEnabled="{Binding IsEnabled, ElementName=progressCheck}"/>
 		<TextBox x:Name="durationText" HorizontalAlignment="Left" Height="22" Margin="10,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" IsEnabled="{Binding IsChecked, ElementName=progressCheck}" Text="10" TabIndex="11" ToolTip="The duration of seconds the action will need to finish." AllowDrop="False" PreviewTextInput="NumberValidationTextBox"/>
 		<Button x:Name="RegEvent_Button" Content="Create Action" HorizontalAlignment="Left" Height="22" Margin="10,405,0,0" VerticalAlignment="Top" Width="136" TabIndex="12" Click="RegEvent_Button_Click"/>
-		<TextBlock HorizontalAlignment="Left" Height="17" Margin="151,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="237"><Run Text="Existing Actions"/><Run Text=" (Double click to edit)"/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
+		<TextBlock HorizontalAlignment="Left" Height="17" Margin="151,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="237"><Run Text="Existing Actions"/><LineBreak/><Run/></TextBlock>
 		<Button x:Name="DelEvent_Button" Content="Delete selected Action" HorizontalAlignment="Left" Height="23" Margin="151,405,0,0" VerticalAlignment="Top" Width="237" TabIndex="13" Click="DelEvent_Button_Click"/>
 		<CheckBox x:Name="classCheck" Content="All of this class?" HorizontalAlignment="Left" Height="20" Margin="10,77,0,0" VerticalAlignment="Top" Width="136" TabIndex="6" ToolTip="Checking this will apply the action to all instances of this objects class, rather than just the object itself."/>
 		<Button x:Name="Generate_Button" Content="Generate as SQF" HorizontalAlignment="Left" Height="23" Margin="272,433,0,0" VerticalAlignment="Top" Width="116" TabIndex="14" Click="Generate_Button_Click"/>
@@ -50,7 +49,6 @@
 			</ToolBar>
 		</ToolBarTray>
 		<TextBlock x:Name="Utility_Label" Text="Utility Label"  HorizontalAlignment="Left" Margin="10,433,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TextAlignment="Center" Height="23"/>
-		<Button x:Name="CancelEdit_Button" Content="Cancel Edit" HorizontalAlignment="Left" Height="22" Margin="10,378,0,0" VerticalAlignment="Top" Width="136" TabIndex="12" Click="CancelEdit_Button_Click" Visibility="Hidden"/>
 
 	</Grid>
 </Window>
