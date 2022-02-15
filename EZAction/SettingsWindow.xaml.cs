@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 //using Microsoft.Win32;
-
+using WK.Libraries.BetterFolderBrowserNS;
 using System.Diagnostics;
 
 namespace TestAppWPF
@@ -24,6 +24,8 @@ namespace TestAppWPF
 	/// </summary>
 	public partial class Window1 : Window
 	{
+		bool armaInstalled = true;
+
 		public Window1()
 		{
 			InitializeComponent();
@@ -35,39 +37,53 @@ namespace TestAppWPF
 			settingsText.Visibility = System.Windows.Visibility.Visible;
 
 			Properties.Settings.Default.defaultSavePath = saveDirText.Text;
-			Properties.Settings.Default.profileName = profileDropDown.SelectedItem.ToString();
-			Properties.Settings.Default.profileDir = profileDir.Text;
 
-				Properties.Settings.Default.Save();
+			if (armaInstalled) {
+				Properties.Settings.Default.profileName = profileDropDown.SelectedItem.ToString();
+				Properties.Settings.Default.profileDir = profileDir.Text;
+			}
+
+			Properties.Settings.Default.Save();
 		}
 
 		private void PopulateListBox()
 		{
-			profileDropDown.Items.Add("Default");
+			if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ArmA 3"))
+			{
+				profileDropDown.Items.Add("Default");
 
-			string otherProfilesDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ArmA 3 - Other Profiles";
-			string[] profileList;
+				string otherProfilesDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ArmA 3 - Other Profiles";
+				string[] profileList;
 
-			if (Directory.Exists(otherProfilesDir)) {
-				profileList = Directory.GetDirectories(otherProfilesDir);
-
-				foreach (string profile in profileList) {
-					string corrected = profile.Replace(otherProfilesDir + "\\", "");
-					profileDropDown.Items.Add(corrected);
-				}
-
-				if (Properties.Settings.Default.profileName == "Default" ||
-					Properties.Settings.Default.profileName == ""
-					)
+				if (Directory.Exists(otherProfilesDir))
 				{
-					profileDropDown.SelectedItem = "Default";
-				}
-				else
-				{
-					profileDropDown.SelectedItem = Properties.Settings.Default.profileName;
+					profileList = Directory.GetDirectories(otherProfilesDir);
+
+					foreach (string profile in profileList)
+					{
+						string corrected = profile.Replace(otherProfilesDir + "\\", "");
+						profileDropDown.Items.Add(corrected);
+					}
+
+					if (Properties.Settings.Default.profileName == "Default" ||
+						Properties.Settings.Default.profileName == ""
+						)
+					{
+						profileDropDown.SelectedItem = "Default";
+					}
+					else
+					{
+						profileDropDown.SelectedItem = Properties.Settings.Default.profileName;
+					}
 				}
 			}
-			
+			else
+			{
+				System.Windows.Forms.MessageBox.Show("It appears that you do not have ArmA 3 installed." + "\n" + "No profiles have been read.");
+				armaInstalled = false;
+
+				profileDropDown.IsEnabled = false;
+			}
 		}
 
 		private void profileDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -85,16 +101,41 @@ namespace TestAppWPF
 
 		private void Pick_Folder_Click(object sender, RoutedEventArgs e)
 		{
-			FolderBrowserDialog folder = new FolderBrowserDialog
-			{
-				SelectedPath = Properties.Settings.Default.defaultSavePath,
-			};
+			//OpenFileDialog folder2 = new OpenFileDialog();
 
-			DialogResult result = folder.ShowDialog();
+			//folder2.ValidateNames = false;
+			//folder2.CheckFileExists = false;
+			//folder2.CheckPathExists = false;
+
+			// Always default to Folder Selection.
+			//folder2.FileName = "";
+
+			//folder2.InitialDirectory = Properties.Settings.Default.defaultSavePath;
+
+			BetterFolderBrowser browser = new BetterFolderBrowser();
+			browser.Multiselect = false;
+			browser.RootFolder = Properties.Settings.Default.defaultSavePath;
+
+			DialogResult result = browser.ShowDialog();
+
+			//FolderBrowserDialog folder = new FolderBrowserDialog
+			//{
+			//	SelectedPath = Properties.Settings.Default.defaultSavePath,
+			//};
+
+			 //result = folder.ShowDialog();
+
+			
 
 			if (result.ToString() == "OK")
 			{
-				saveDirText.Text = folder.SelectedPath;
+				//string toReplaceFolder = folder2.FileName;
+				//string safeFileName = folder2.SafeFileName;
+
+				//string replacedFolder = toReplaceFolder.Replace(safeFileName, "");
+				//replacedFolder = replacedFolder.Replace("\\\\", "\\");
+
+				saveDirText.Text = browser.SelectedFolder;
 			}
 		}
 	}
