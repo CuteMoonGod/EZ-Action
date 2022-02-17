@@ -152,8 +152,6 @@ namespace TestAppWPF
 
 				MessageBox.Show(builder.ToString(), "Initial Setup", buttons, image);
 
-				//FolderBrowserDialog folder = new FolderBrowserDialog();
-
 				DialogResult result = browser.ShowDialog();
 
 				switch (result)
@@ -194,8 +192,6 @@ namespace TestAppWPF
 		private void ActivateEditingMode()
 		{
 			editing = true;
-			//Editing_Label.Visibility = Visibility.Visible;
-			//Utility_Label.Text = editingMode;
 
 			ResetElements(true, true, false, true);
 
@@ -300,7 +296,6 @@ namespace TestAppWPF
 		{
 			bool alphanumericFail;
 			bool startFail;
-			//	throw new NotImplementedException();
 
 			Regex regex = new Regex("([^_0-9a-zA-Z])+");
 			alphanumericFail = regex.IsMatch(functionText.Text);
@@ -454,7 +449,7 @@ namespace TestAppWPF
 
 		private string GetJSONs()
 		{
-			metadata Data = new metadata();
+			Metadata Data = new Metadata();
 			String Data_JSON = Data.ExportMetadata();
 
 			string actions = aceEvent.ExportJSONString();
@@ -556,11 +551,10 @@ namespace TestAppWPF
 
 					if (first)
 					{
-						metadata data = JsonSerializer.Deserialize<metadata>(line);
+						Metadata data = JsonSerializer.Deserialize<Metadata>(line);
 
 						if (!data.ValidateSelf())
 						{
-							//metaImported = true;
 							MessageBox.Show("The metadata couldn't be loaded!");
 						}
 						//else
@@ -662,7 +656,6 @@ namespace TestAppWPF
 		private void CompletedHandler(object sender, EventArgs e)
 		{
 			animPlay.Stop(Utility_Label);
-			//Utility_Label.Visibility = Visibility.Hidden;
 			Utility_Label.Opacity = 0.0;
 		}
 
@@ -807,15 +800,7 @@ namespace TestAppWPF
 			//1 - user abort
 			//2 - nothing to declare
 			//3 - other error
-			//int varBuild = variableContent.BuildSQF();
 			int evtBuild = aceEvent.BuildSQF();
-
-			//new errorPrint(evtBuild);
-
-			//if (evtBuild == 0)
-			//{
-			//	Utility_Label.Text = actionsWritten;
-			//}
 
 			switch (evtBuild)
 			{
@@ -838,11 +823,6 @@ namespace TestAppWPF
 		{
 			int result;
 			result = aceEvent.BuildToClipboard();
-
-			//if (result == 0)
-			//{
-			//	Utility_Label.Text = copiedToClipboard;
-			//}
 
 			switch (result)
 			{
