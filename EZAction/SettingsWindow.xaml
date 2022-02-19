@@ -22,7 +22,7 @@
 			</TextBox.DataContext>
 		</TextBox>
 		<TextBlock HorizontalAlignment="Left" Margin="10,38,0,0" TextWrapping="Wrap" Text="ArmA 3 Profile" VerticalAlignment="Top" Height="23"/>
-		<ComboBox x:Name="profileDropDown" HorizontalAlignment="Left" Margin="95,38,0,0" VerticalAlignment="Top" Width="77" SelectionChanged="profileDropDown_SelectionChanged"/>
+		<ComboBox x:Name="profileDropDown" HorizontalAlignment="Left" Margin="95,38,0,0" VerticalAlignment="Top" Width="77" SelectionChanged="ProfileDropDown_SelectionChanged"/>
 		<Button x:Name="Pick_Folder" Content="...&#xD;&#xA;" HorizontalAlignment="Left" Margin="95,10,0,0" VerticalAlignment="Top" Width="30" Height="23" Click="Pick_Folder_Click"/>
 	</Grid>
 </Window>
