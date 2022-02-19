@@ -86,9 +86,11 @@ namespace TestAppWPF
 			}
 		}
 
-		private void profileDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void ProfileDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (profileDropDown.SelectedItem == "Default")
+			string selection = profileDropDown.SelectedItem.ToString();
+
+			if (selection == "Default")
 			{
 				profileDir.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ArmA 3";
 			}
@@ -101,40 +103,16 @@ namespace TestAppWPF
 
 		private void Pick_Folder_Click(object sender, RoutedEventArgs e)
 		{
-			//OpenFileDialog folder2 = new OpenFileDialog();
-
-			//folder2.ValidateNames = false;
-			//folder2.CheckFileExists = false;
-			//folder2.CheckPathExists = false;
-
-			// Always default to Folder Selection.
-			//folder2.FileName = "";
-
-			//folder2.InitialDirectory = Properties.Settings.Default.defaultSavePath;
-
-			BetterFolderBrowser browser = new BetterFolderBrowser();
-			browser.Multiselect = false;
-			browser.RootFolder = Properties.Settings.Default.defaultSavePath;
+			BetterFolderBrowser browser = new BetterFolderBrowser
+			{
+				Multiselect = false,
+				RootFolder = Properties.Settings.Default.defaultSavePath
+			};
 
 			DialogResult result = browser.ShowDialog();
-
-			//FolderBrowserDialog folder = new FolderBrowserDialog
-			//{
-			//	SelectedPath = Properties.Settings.Default.defaultSavePath,
-			//};
-
-			 //result = folder.ShowDialog();
-
 			
-
 			if (result.ToString() == "OK")
 			{
-				//string toReplaceFolder = folder2.FileName;
-				//string safeFileName = folder2.SafeFileName;
-
-				//string replacedFolder = toReplaceFolder.Replace(safeFileName, "");
-				//replacedFolder = replacedFolder.Replace("\\\\", "\\");
-
 				saveDirText.Text = browser.SelectedFolder;
 			}
 		}

@@ -13,13 +13,11 @@ using Microsoft.Win32;
 namespace TestAppWPF
 {
 	[Serializable]
-	class aceEvent
+	class AceEvent
 	{
 		//Global Variables
-		public static List<aceEvent> eventList = new List<aceEvent>();
+		public static List<AceEvent> eventList = new List<AceEvent>();
 		public static string file;
-
-		private int id;
 
 		private string functionName;
 		private string displayText;
@@ -73,13 +71,13 @@ namespace TestAppWPF
 		}
 
 		//Test default
-		public aceEvent() {
+		public AceEvent() {
 
 		}
 
-		public aceEvent(int impID, string impFunction, string impDisplay, bool? impProgress, int impDuration, string impTarget, bool? classBox, string impLabel)
+		public AceEvent(string impFunction, string impDisplay, bool? impProgress, int impDuration, string impTarget, bool? classBox, string impLabel)
 		{
-			id = impID;
+			//id = impID;
 
 			functionName = impFunction;
 			displayText = impDisplay;
@@ -121,7 +119,7 @@ namespace TestAppWPF
 		public static string ExportJSONString() {
 			string json = "";
 
-			foreach(aceEvent element in eventList)
+			foreach(AceEvent element in eventList)
 			{
 				json = ConcatWithNewLine(json, JsonSerializer.Serialize(element));
 			}
@@ -131,11 +129,9 @@ namespace TestAppWPF
 
 		public static int BuildSQF()
 		{
-			//StringBuilder buildBuddy = new StringBuilder();
 
 			if (eventList.Count <= 0)
 			{
-				//MessageBox.Show("No actions to declare. Skipping step.");
 				return 2;
 			}
 
@@ -168,11 +164,8 @@ namespace TestAppWPF
 
 		public static int BuildToClipboard()
 		{
-			//StringBuilder buildBuddy = new StringBuilder();
-
 			if (eventList.Count <= 0)
 			{
-				//MessageBox.Show("No actions to declare. Skipping step.");
 				return 1;
 			}
 
@@ -182,7 +175,7 @@ namespace TestAppWPF
 			{
 				System.Windows.Clipboard.SetText(buildReturn);
 			}
-			catch(Exception e)
+			catch(Exception)
 			{
 				return 2;
 			}
@@ -240,9 +233,9 @@ namespace TestAppWPF
 			concat = ConcatNewLine(concat);*/
 
 			builder.AppendLine("// Change your conditions here; Keep in mind, they have to be code blocks!");
-			foreach (aceEvent element in eventList)
+			foreach (AceEvent element in eventList)
 			{
-				int index = eventList.IndexOf(element) + 1;
+				//int index = eventList.IndexOf(element) + 1;
 				string condition = String.Concat("_", element.functionName, "Condition");
 
 				builder.Append(condition);
@@ -252,7 +245,7 @@ namespace TestAppWPF
 			builder.AppendLine("");
 			builder.AppendLine("//Target Declarations");
 
-			foreach (aceEvent element in eventList)
+			foreach (AceEvent element in eventList)
 			{
 				int index = eventList.IndexOf(element) + 1;
 				string objectNum = String.Concat("_", element.functionName, "Target");
@@ -273,9 +266,9 @@ namespace TestAppWPF
 		{
 			// Initialize cause else C# cries
 			StringBuilder builder = new StringBuilder();
-			string concat = "";
+			string concat;
 
-			foreach (aceEvent element in eventList)
+			foreach (AceEvent element in eventList)
 			{
 
 				concat = String.Concat(new[] { "_", element.functionName, " = {" });
@@ -314,7 +307,7 @@ namespace TestAppWPF
 			builder.AppendLine("// Creating the actions; the condition defaults to true, so don't forget to adjust the conditions in the actions!");
 			builder.AppendLine("");
 
-			foreach (aceEvent element in eventList)
+			foreach (AceEvent element in eventList)
 			{
 				int index = eventList.IndexOf(element) + 1;
 
@@ -339,7 +332,7 @@ namespace TestAppWPF
 			builder.AppendLine("// Adding the created actions to the chosen objects");
 			builder.AppendLine("");
 
-			foreach (aceEvent element in eventList)
+			foreach (AceEvent element in eventList)
 			{
 				int index = eventList.IndexOf(element) + 1;
 				string objectNum = String.Concat("_", element.functionName, "Target");
