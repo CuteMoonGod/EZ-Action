@@ -287,6 +287,7 @@ namespace TestAppWPF
 				builder.AppendLine("");
 
 				if (element.progressBar) {
+					concat = String.Concat("}, {}, \"", element.displayText, "\"] call ace_common_fnc_progressBar;");
 					builder.AppendLine(concat);
 				}
 
