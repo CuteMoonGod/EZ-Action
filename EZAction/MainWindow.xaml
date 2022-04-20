@@ -23,7 +23,7 @@
 		<CheckBox x:Name="classCheck" Content="All of this class?" HorizontalAlignment="Left" Height="20" Margin="10,77,0,0" VerticalAlignment="Top" Width="136" TabIndex="6" ToolTip="Checking this will apply the action to all instances of this objects class, rather than just the object itself."/>
 		<Button x:Name="Generate_Button" Content="Generate as SQF" HorizontalAlignment="Left" Height="23" Margin="272,433,0,0" VerticalAlignment="Top" Width="116" TabIndex="14" Click="Generate_Button_Click"/>
 		<Button x:Name="Clipboard_Button" Content="Copy to Clipboard" HorizontalAlignment="Left" Height="23" Margin="151,433,0,0" VerticalAlignment="Top" Width="116" TabIndex="14" Click="Clipboard_Button_Click"/>
-		<ListBox x:Name="eventList" Height="350" Margin="151,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="237" MouseDoubleClick="EventList_MouseDoubleClick"/>
+		<ListBox x:Name="eventList" Height="322" Margin="151,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="237" MouseDoubleClick="EventList_MouseDoubleClick"/>
 		<TextBox x:Name="eventLabelText" HorizontalAlignment="Left" Height="21" Margin="10,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TabIndex="8" ToolTip="This is the label that is shown in the interaction menu of the object the action is applied to."/>
 		<TextBlock HorizontalAlignment="Left" Height="16" Margin="10,141,0,0" TextWrapping="Wrap" Text="Event Label" VerticalAlignment="Top" Width="136"/>
 		<ToolBarTray Height="28" VerticalAlignment="Top" IsLocked="true">
@@ -51,6 +51,7 @@
 		</ToolBarTray>
 		<TextBlock x:Name="Utility_Label" Text="Utility Label"  HorizontalAlignment="Left" Margin="10,433,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TextAlignment="Center" Height="23"/>
 		<Button x:Name="CancelEdit_Button" Content="Cancel Edit" HorizontalAlignment="Left" Height="22" Margin="10,378,0,0" VerticalAlignment="Top" Width="136" TabIndex="12" Click="CancelEdit_Button_Click" Visibility="Hidden"/>
+		<Button x:Name="Prefabs_Button" Content="Manage Prefabs" HorizontalAlignment="Left" Height="23" Margin="151,377,0,0" VerticalAlignment="Top" Width="237" TabIndex="13" Click="Prefabs_Button_Click" IsEnabled="False"/>
 
 	</Grid>
 </Window>

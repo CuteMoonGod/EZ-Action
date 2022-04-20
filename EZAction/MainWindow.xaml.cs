@@ -87,6 +87,13 @@ namespace TestAppWPF
 		{
 			InitializeComponent();
 
+			if (Properties.Settings.Default.UpdateSettings)
+			{
+				Properties.Settings.Default.Upgrade();
+				Properties.Settings.Default.UpdateSettings = false;
+				Properties.Settings.Default.Save();
+			}
+
 			bool profileDirInitial = Properties.Settings.Default.profileDir == "";
 			bool savePathInitial = Properties.Settings.Default.defaultSavePath == "";
 
@@ -159,13 +166,66 @@ namespace TestAppWPF
 			fadeOutAnim.FillBehavior = FillBehavior.Stop;
 
 			Utility_Label.Text = labelEmpty;
+
+			InitializeConditionList();
+			InitializeSnippetList();
+		}
+
+		private void InitializeConditionList()
+		{
+			string location = System.Reflection.Assembly.GetExecutingAssembly().Location;
+			location = System.IO.Path.GetDirectoryName(location);
+
+			StreamReader readingFile = new StreamReader(location + "\\PrefabConditions.ini");
+
+			try
+			{
+				string line;
+				while ((line = readingFile.ReadLine()) != null)
+				{
+					PrefabCondition deserializedCondition = JsonSerializer.Deserialize<TestAppWPF.PrefabCondition>(line);
+
+					if (deserializedCondition.ValidateSelf()) {
+						PrefabCondition.conditionList.Add(deserializedCondition);
+					}
+				}
+			}
+			catch (Exception e) {
+				int a = 1;
+			}
+		}
+
+		private void InitializeSnippetList()
+		{
+			string location = System.Reflection.Assembly.GetExecutingAssembly().Location;
+			location = System.IO.Path.GetDirectoryName(location);
+
+			StreamReader readingFile = new StreamReader(location + "\\PrefabSnippets.ini");
+
+			try
+			{
+				string line;
+				while ((line = readingFile.ReadLine()) != null)
+				{
+					PrefabSnippet deserializedSnippet = JsonSerializer.Deserialize<TestAppWPF.PrefabSnippet>(line);
+
+					if (deserializedSnippet.ValidateSelf())
+					{
+						PrefabSnippet.snippetsList.Add(deserializedSnippet);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				int a = 1;
+			}
 		}
 
 		private void ActivateEditingMode()
 		{
 			editing = true;
 
-			ResetElements(true, true, false, true);
+			ResetElements(true, true, false, true, false, true, false);
 
 			SetUtilityLabel(editingMode);
 
@@ -382,7 +442,7 @@ namespace TestAppWPF
 
 		}
 
-		private void ResetElements(bool colouring, bool texts = false, bool target = false, bool label = false, bool buttonVisible = false)
+		private void ResetElements(bool colouring, bool texts = false, bool target = false, bool label = false, bool buttonVisible = false, bool forcePrefab = false, bool prefabValue = false)
 		{
 			if (colouring)
 			{
@@ -419,6 +479,8 @@ namespace TestAppWPF
 			}
 
 			AdjustEditVisibility(buttonVisible);
+
+			DeterminePrefabButton(forcePrefab, prefabValue);
 		}
 
 		private string GetJSONs()
@@ -431,16 +493,33 @@ namespace TestAppWPF
 			return String.Concat(Data_JSON, Environment.NewLine, actions);
 		}
 
-		private void RegisterChange()
+		public void RegisterChange()
 		{
 			edited = true;
 			this.Title = SetNewTitle(openedFile, true);
 		}
 
-		private void DeregisterChange()
+		public void DeregisterChange()
 		{
 			edited = false;
 			this.Title = SetNewTitle(openedFile);
+		}
+
+		private void DeterminePrefabButton(bool forced = false, bool value = false)
+		{
+			if (forced) {
+				Prefabs_Button.IsEnabled = value;
+			}
+			else {
+				if(eventList.Items.Count > 0)
+				{
+					Prefabs_Button.IsEnabled = true;
+				}
+				else
+				{
+					Prefabs_Button.IsEnabled = false;
+				}
+			}
 		}
 
 		private void AdjustEditVisibility(bool visible)
@@ -474,7 +553,7 @@ namespace TestAppWPF
 
 			eventList.Items.Clear();
 
-			ResetElements(true, true, false, true);
+			ResetElements(true, true, false, true, false);
 		}
 
 		/* Event Section
@@ -536,9 +615,12 @@ namespace TestAppWPF
 
 						if (deserializedEvent.ValidateSelf())
 						{
+							//deserializedEvent.CheckConditions();
+							//deserializedEvent.CheckSnippets();
+
 							AceEvent.eventList.Add(deserializedEvent);
 
-							string concated = String.Concat(deserializedEvent.FunctionName, "on object ", deserializedEvent.TargetEntity);
+							string concated = String.Concat(deserializedEvent.FunctionName, " on object ", deserializedEvent.TargetEntity);
 							eventList.Items.Add(concated);
 						}
 						else
@@ -561,8 +643,24 @@ namespace TestAppWPF
 				{
 					MessageBox.Show("The file was empty or couldn't be loaded!");
 				}
+
+				DeterminePrefabButton();
 			}
 		}
+
+		private void Prefabs_Button_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				PrefabWindow window1 = new PrefabWindow(this, AceEvent.eventList[eventList.SelectedIndex], eventList.SelectedIndex);
+
+				//Deactivate the main window to prevent fuckery
+				this.IsEnabled = false;
+
+				window1.Show();
+			}
+			catch(Exception ae) { }
+		 }
 
 		private void Save_Button_Click(object sender, RoutedEventArgs e)
 		{
@@ -576,7 +674,7 @@ namespace TestAppWPF
 
 		private void SettingsButton_Click(object sender, RoutedEventArgs e)
 		{
-			Window1 win1 = new Window1();
+			SettingsWindow win1 = new SettingsWindow();
 			win1.Show();
 		}
 
@@ -593,7 +691,7 @@ namespace TestAppWPF
 		// Utility Events
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			if (edited)
+			if (edited && eventList.Items.Count > 0)
 			{
 				MessageBoxButtons buttons = MessageBoxButtons.YesNoCancel;
 				MessageBoxIcon image = MessageBoxIcon.Warning;
@@ -755,6 +853,8 @@ namespace TestAppWPF
 			{
 				SetUtilityLabel(noActionSelected, true);
 			}
+
+			DeterminePrefabButton();
 		}
 
 		private void Generate_Button_Click(object sender, RoutedEventArgs e)
@@ -800,11 +900,6 @@ namespace TestAppWPF
 					SetUtilityLabel(errorWrite, true);
 					break;
 			}
-		}
-
-		private void OpenVarPage_Button_Click(object sender, RoutedEventArgs e)
-		{
-
 		}
 	}
 }

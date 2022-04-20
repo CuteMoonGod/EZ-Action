@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestAppWPF"
-        xmlns:Properties="clr-namespace:TestAppWPF.Properties" x:Class="TestAppWPF.Window1"
+        xmlns:Properties="clr-namespace:TestAppWPF.Properties" x:Class="TestAppWPF.SettingsWindow"
         mc:Ignorable="d"
         Title="Settings" Height="158.247" Width="497.585" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
 	<Grid Margin="0,0,10,10">
