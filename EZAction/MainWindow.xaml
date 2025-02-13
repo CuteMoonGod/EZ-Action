@@ -10,7 +10,7 @@
 	<Grid VerticalAlignment="Top" Height="466" Width="398" HorizontalAlignment="Left">
 		<TextBlock HorizontalAlignment="Left" Height="17" Margin="10,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" Text="Name of Target Object&#xD;&#xA;"/>
 		<TextBox x:Name="targetText" Height="22" Margin="10,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.489,2.545" TabIndex="5" HorizontalAlignment="Left" Width="136" ToolTip="The variable name of the in-game object you want to add the action to goes here."/>
-		<TextBlock HorizontalAlignment="Left" Height="17" Margin="10,102,0,0" TextWrapping="Wrap" Text="Function Name" VerticalAlignment="Top" Width="136"/>
+		<TextBlock HorizontalAlignment="Left" Height="17" Margin="10,102,0,0" TextWrapping="Wrap" Text="Function Name" VerticalAlignment="Top" Width="84"/>
 		<TextBox x:Name="functionText" HorizontalAlignment="Left" Height="22" Margin="10,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TabIndex="7" ToolTip="What the resulting function is called in the output.&#x0a;You should give out descriptive names here, so you can easily identify them when adding the behavior.&#x0a;Only alphanumerics and underscores are allowed but numbers cannot be on the first position."/>
 		<TextBlock HorizontalAlignment="Left" Height="17" Margin="10,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" IsEnabled="{Binding IsEnabled, ElementName=progressCheck}"><Run Text="Text"/><Run Text=" "/><Run Text="during Action"/></TextBlock>
 		<TextBox x:Name="actionText" HorizontalAlignment="Left" Height="22" Margin="10,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TabIndex="10" IsEnabled="{Binding IsChecked, ElementName=progressCheck}" ToolTip="This will be the text shown inside the progress bar."/>
@@ -25,7 +25,7 @@
 		<Button x:Name="Clipboard_Button" Content="Copy to Clipboard" HorizontalAlignment="Left" Height="23" Margin="151,433,0,0" VerticalAlignment="Top" Width="116" TabIndex="14" Click="Clipboard_Button_Click"/>
 		<ListBox x:Name="eventList" Height="322" Margin="151,50,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="237" MouseDoubleClick="EventList_MouseDoubleClick"/>
 		<TextBox x:Name="eventLabelText" HorizontalAlignment="Left" Height="21" Margin="10,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TabIndex="8" ToolTip="This is the label that is shown in the interaction menu of the object the action is applied to."/>
-		<TextBlock HorizontalAlignment="Left" Height="16" Margin="10,141,0,0" TextWrapping="Wrap" Text="Event Label" VerticalAlignment="Top" Width="136"/>
+		<TextBlock HorizontalAlignment="Left" Height="16" Margin="10,141,0,0" TextWrapping="Wrap" Text="Event Label" VerticalAlignment="Top" Width="84"/>
 		<ToolBarTray Height="28" VerticalAlignment="Top" IsLocked="true">
 			<ToolBar x:Name="FileOpToolbar" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="388" Margin="0,0,-364,-15">
 				<Button x:Name="New_File"  Height="23" VerticalAlignment="Top" Width="23" FontFamily="Segoe MDL2 Assets" Content="&#xE7c3;" ToolTip="New File" Click="New_File_Click"/>
@@ -52,6 +52,6 @@
 		<TextBlock x:Name="Utility_Label" Text="Utility Label"  HorizontalAlignment="Left" Margin="10,433,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="136" TextAlignment="Center" Height="23"/>
 		<Button x:Name="CancelEdit_Button" Content="Cancel Edit" HorizontalAlignment="Left" Height="22" Margin="10,378,0,0" VerticalAlignment="Top" Width="136" TabIndex="12" Click="CancelEdit_Button_Click" Visibility="Hidden"/>
 		<Button x:Name="Prefabs_Button" Content="Manage Prefabs" HorizontalAlignment="Left" Height="23" Margin="151,377,0,0" VerticalAlignment="Top" Width="237" TabIndex="13" Click="Prefabs_Button_Click" IsEnabled="False"/>
-
+		<CheckBox x:Name="inputLock" Content="Lock inputs?" HorizontalAlignment="Left" Margin="10,385,0,0" VerticalAlignment="Top" Width="136"/>
 	</Grid>
 </Window>

@@ -15,6 +15,8 @@ namespace TestAppWPF
 	[Serializable]
 	public class AceEvent
 	{
+		private const string newline = "\\n";
+
 		//Global Variables
 		public static List<AceEvent> eventList = new List<AceEvent>();
 		public static string file;
@@ -251,10 +253,16 @@ namespace TestAppWPF
 			{
 				//int index = eventList.IndexOf(element) + 1;
 				string condition = String.Concat("_", element.functionName, "Condition");
-
 				builder.Append(condition);
 
-				condition = String.Concat(" = { ", element.AppliedCondition.ConditionText, " };");
+				if (element.AppliedCondition != null)
+				{
+					condition = String.Concat(" = { ", element.AppliedCondition.ConditionText, " };");
+				}
+				else
+				{
+					condition = String.Concat(" = { true };");
+				}
 				builder.AppendLine(condition);
 			}
 
@@ -297,12 +305,30 @@ namespace TestAppWPF
 					builder.AppendLine(concat);
 				}
 
+				if (element.PrefabSnippets.Count > 0)
+				{
+					builder.AppendLine("//Preset snippets get printed here");
+					foreach (PrefabSnippet snippet in element.PrefabSnippets)
+					{
+						String[] snippetLines = snippet.SnippetText.Split('\n');
+
+						foreach (String line in snippetLines)
+						{
+							builder.AppendLine(line);
+						}
+					}
+
+					builder.AppendLine("");
+					builder.AppendLine("");
+				}
+
 				builder.AppendLine("//Your code goes here!");
 				builder.AppendLine("");
 				builder.AppendLine("");
 				builder.AppendLine("");
 
 				if (element.progressBar) {
+					concat = String.Concat("}, {}, \"", element.displayText, "\"] call ace_common_fnc_progressBar;");
 					builder.AppendLine(concat);
 				}
 
@@ -364,7 +390,6 @@ namespace TestAppWPF
 					concat = String.Concat("[", objectNum, ", 0, [\"ACE_MainActions\"], _generatedAction", index, "] call ace_interact_menu_fnc_addActionToObject;");
 					builder.AppendLine(concat);
 				}
-				builder.AppendLine("");
 			}
 			return builder.ToString();
 		}
@@ -415,60 +440,6 @@ namespace TestAppWPF
 		}
 	}
 
-
-
-	//class variableContent {
-	//	public static List<variableContent> variableList = new List<variableContent>();
-
-	//	private string name;
-	//	private string value;
-
-	//	public variableContent(string varName, string varVal) {
-	//		name = varName;
-	//		value = varVal;
-	//	}
-
-	//	public static int BuildSQF()
-	//	{
-	//		if (variableList.Count <= 0) {
-	//			MessageBox.Show("No variables to declare. Skipping step.");
-	//			return 2;
-	//		}
-
-	//		SaveFileDialog saveDialog = new SaveFileDialog
-	//		{
-	//			Filter = "ArmA 3 Scripting Files (*.sqf)|*.sqf",
-	//			FileName = "output_variables.sqf",
-	//			InitialDirectory = Properties.Settings.Default.defaultSavePath
-	//		};
-
-	//		if (saveDialog.ShowDialog() == true)
-	//		{
-	//			//Cleanup file before writing
-	//			File.Delete(saveDialog.FileName);
-
-	//			foreach (variableContent element in variableList)
-	//			{
-	//				string line;
-	//				//If it's only numbers OR bool values, treat as such
-	//				if (Regex.IsMatch(element.value, "^[0-9]*$") || element.value == "true" || element.value == "false")
-	//				{
-	//					line = String.Concat(element.name, " = ", element.value, "; publicVariable \"", element.name, "\";");
-	//				}
-	//				//Else treat as foreign
-	//				else
-	//				{
-	//					line = String.Concat(element.name, " = \"", element.value, "\"; publicVariable \"", element.name, "\";");
-	//				}
-	//			}
-	//			return 0;
-	//		}
-	//		else {
-	//			return 1;
-	//		}
-	//	}
-		
-	//}
 
 	class ErrorPrint
 	{

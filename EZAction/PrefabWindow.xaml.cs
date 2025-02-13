@@ -7,10 +7,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace TestAppWPF
 {
@@ -22,6 +25,8 @@ namespace TestAppWPF
 		MainWindow parentCache;
 		AceEvent selectedEvent;
 		int selectedIndex;
+		int actualBounds;
+		bool outdatedCondition;
 
 		public PrefabWindow(MainWindow parent, AceEvent aceEvent, int index)
 		{
@@ -53,9 +58,22 @@ namespace TestAppWPF
 		{
 			if (selectedEvent.AppliedCondition != null)
 			{
-				ConditionBox.SelectedItem = selectedEvent.AppliedCondition.ConditionName;
+				if (ConditionBox.Items.Contains(selectedEvent.AppliedCondition.ConditionName))
+				{
+					ConditionBox.SelectedItem = selectedEvent.AppliedCondition.ConditionName;
+				}
+				else
+				{
+					string wrongConditionName = String.Concat("* ", selectedEvent.AppliedCondition.ConditionName);
+					actualBounds = ConditionBox.Items.Count;
+					outdatedCondition = true;
+
+					ConditionBox.Items.Add(wrongConditionName);
+					ConditionBox.SelectedItem = wrongConditionName;
+				}
 			}
 		}
+
 
 		private void PopulateSnippets()
 		{
@@ -63,14 +81,30 @@ namespace TestAppWPF
 			{
 				SnippetList.Items.Add(snippet.SnippetName);
 			}
-			//SnippetBox.Items.Add(SnippetList.FindName(selectedEvent.prefabSnippets.);
-			//throw new NotImplementedException();
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			if (ConditionBox.SelectedIndex != -1) {
-				selectedEvent.AppliedCondition = PrefabCondition.conditionList[ConditionBox.SelectedIndex];
+			if (ConditionBox.SelectedIndex != -1)
+			{
+				if (outdatedCondition != true)
+				{
+					selectedEvent.AppliedCondition = PrefabCondition.conditionList[ConditionBox.SelectedIndex];
+				}
+
+				else if (outdatedCondition == true && ConditionBox.SelectedIndex + 1 <= actualBounds)
+				{
+					MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+					MessageBoxIcon image = MessageBoxIcon.Warning;
+					StringBuilder builder = new StringBuilder();
+					DialogResult result;
+
+					result = MessageBox.Show("You appear to be using an outdated condition. Do you want to overwrite it?", "Outdated Condition", buttons, image);
+					if (result == System.Windows.Forms.DialogResult.Yes)
+					{
+						selectedEvent.AppliedCondition = PrefabCondition.conditionList[ConditionBox.SelectedIndex];
+					}
+				}
 			}
 			AceEvent.eventList[selectedIndex] = selectedEvent;
 
@@ -94,7 +128,7 @@ namespace TestAppWPF
 				SnippetList.Items.RemoveAt(SnippetList.SelectedIndex);
 				DetermineDelete();
 			}
-			catch (Exception ea) { }
+			catch (Exception ea) {  }
 		}
 
 		private void SnippetList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -112,6 +146,16 @@ namespace TestAppWPF
 			{
 				RemovePrefabButton.IsEnabled = false;
 			}
+		}
+
+		private void MoveSnippetUpButton_Click(object sender, RoutedEventArgs e)
+		{
+			//selectedEvent.PrefabSnippets.
+		}
+
+		private void MoveSnippetDownButton_Click(object sender, RoutedEventArgs e)
+		{
+			//
 		}
 	}
 }

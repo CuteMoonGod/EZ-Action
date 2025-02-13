@@ -101,7 +101,7 @@ namespace TestAppWPF
 
 			StringBuilder builder = new StringBuilder();
 
-			MessageBoxButtons buttons = MessageBoxButtons.OK;
+			MessageBoxButtons buttons = MessageBoxButtons.YesNo;
 			MessageBoxIcon image = MessageBoxIcon.Information;
 
 			BetterFolderBrowser browser = new BetterFolderBrowser
@@ -453,24 +453,27 @@ namespace TestAppWPF
 				durationText.Background = Brushes.Transparent;
 			}
 
-			if (texts)
+			if (!(bool)inputLock.IsChecked)
 			{
-				functionText.Text = "";
+				if (texts)
+				{
+					functionText.Text = "";
 
-				classCheck.IsChecked = false;
+					classCheck.IsChecked = false;
 
-				actionText.Text = "";
-				eventLabelText.Text = "";
+					actionText.Text = "";
+					eventLabelText.Text = "";
 
-				progressCheck.IsChecked = true;
-				durationText.Text = "10";
+					progressCheck.IsChecked = true;
+					durationText.Text = "10";
 
-				RegEvent_Button.Content = createAction;
-			}
+					RegEvent_Button.Content = createAction;
+				}
 
-			if (target)
-			{
-				targetText.Text = "";
+				if (target)
+				{
+					targetText.Text = "";
+				}
 			}
 
 			if (label)
@@ -901,6 +904,7 @@ namespace TestAppWPF
 					break;
 			}
 		}
+
 	}
 }
 

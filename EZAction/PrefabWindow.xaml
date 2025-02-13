@@ -6,18 +6,17 @@
         xmlns:local="clr-namespace:TestAppWPF"
         mc:Ignorable="d"
 		Closing="Window_Closing"
-        Title="PrefabWindow" Height="299" Width="475">
+        Title="PrefabWindow" Height="299" Width="350">
 	<Grid Margin="0,0,2,0">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto"/>
-		</Grid.ColumnDefinitions>
 		<Label Content="Action Condition" HorizontalAlignment="Left" Height="26" Margin="10,10,0,0" VerticalAlignment="Top" Width="126"/>
-		<ComboBox x:Name="ConditionBox" HorizontalAlignment="Left" Margin="141,14,0,0" VerticalAlignment="Top" Width="160" Height="22"/>
+		<ComboBox x:Name="ConditionBox" Margin="141,14,10,0" VerticalAlignment="Top" Height="22"/>
 		<Label Content="Snippets for action" HorizontalAlignment="Left" Height="29" Margin="10,39,0,0" VerticalAlignment="Top" Width="126"/>
-		<ComboBox x:Name="SnippetBox" HorizontalAlignment="Left" Margin="141,41,0,0" VerticalAlignment="Top" Width="160" IsReadOnly="True" Height="22"/>
-		<ListView x:Name="SnippetList" HorizontalAlignment="Left" Height="129" Margin="141,68,0,0" VerticalAlignment="Top" Width="160" SelectionMode="Single" SelectionChanged="SnippetList_SelectionChanged"/>
+		<ComboBox x:Name="SnippetBox" Margin="141,41,10,0" VerticalAlignment="Top" IsReadOnly="True" Height="22"/>
+		<ListView x:Name="SnippetList" Margin="141,68,10,10" SelectionMode="Single" SelectionChanged="SnippetList_SelectionChanged"/>
 		<Button x:Name="AddPrefabButton" Content="Add Prefab" HorizontalAlignment="Left" Height="22" Margin="10,68,0,0" VerticalAlignment="Top" Width="126" Click="AddPrefabButton_Click"/>
 		<Button x:Name="RemovePrefabButton" Content="Remove Prefab" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Width="126" Click="RemovePrefabButton_Click" IsEnabled="False"/>
+		<Button x:Name="MoveSnippetUpButton" Content="🠕" HorizontalAlignment="Left" Height="25" Margin="111,120,0,0" VerticalAlignment="Top" Width="25" FontSize="16" Click="MoveSnippetUpButton_Click" Visibility="Hidden"/>
+		<Button x:Name="MoveSnippetDownButton" Content="🠗" HorizontalAlignment="Left" Height="25" Margin="111,150,0,0" VerticalAlignment="Top" Width="25" FontSize="16" Click="MoveSnippetDownButton_Click" Visibility="Hidden"/>
 
 	</Grid>
 </Window>
